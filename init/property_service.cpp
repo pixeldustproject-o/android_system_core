@@ -692,43 +692,20 @@ static void load_override_properties() {
 }
 
 /* From Magisk@jni/magiskhide/hide_utils.c */
-static const char *cts_prop_key[] = {
-	"ro.boot.verifiedbootstate",
-	"ro.boot.flash.locked",
-	"ro.boot.selinux",
-	"ro.boot.veritymode",
-	"ro.boot.warranty_bit",
-	"ro.warranty_bit",
-	"ro.debuggable",
-	"ro.secure",
-	"ro.build.type",
-	"ro.build.tags",
-	"ro.build.selinux",
-	NULL
-};
+static const char *cts_prop_key[] =
+        { "ro.boot.verifiedbootstate", "ro.boot.flash.locked", "ro.boot.veritymode", "ro.boot.warranty_bit", "ro.warranty_bit",
+         "ro.debuggable", "ro.secure", "ro.build.type", "ro.build.tags", "ro.build.selinux", NULL };
 
-static const char *cts_prop_value[] = {
-	"green",
-	"1",
-	"enforcing",
-	"enforcing",
-	"0",
-	"0",
-	"0",
-	"1",
-	"user",
-	"release-keys",
-	"1",
-	NULL
-};
+static const char *cts_prop_value[] =
+	{ "green", "1", "enforcing", "0", "0", "0", "1", "user", "release-keys", "0", NULL };
 
 static void workaround_cts_properties() {
-	NOTICE("cts: Hiding sensitive props\n");
+	PLOG(INFO) << "cts: Hiding sensitive props";
 
 	// Hide all sensitive props
 	std::string value;
 	for (int i = 0; cts_prop_key[i]; ++i) {
-		value = property_get(cts_prop_key[i]);
+		value = android::base::GetProperty(cts_prop_key[i], "");
 		if (value != cts_prop_value[i])
 			property_set(cts_prop_key[i], cts_prop_value[i]);
 	}
