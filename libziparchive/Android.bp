@@ -51,6 +51,12 @@ cc_defaults {
         "liblog",
     ],
 
+    arch: {
+        arm: {
+            instruction_set: "arm",
+        },
+    },
+
     export_include_dirs: ["include"],
 }
 
