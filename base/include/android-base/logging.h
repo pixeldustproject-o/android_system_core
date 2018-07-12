@@ -433,6 +433,7 @@ class LogMessage {
   std::ostream& stream();
 
   // The routine that performs the actual logging.
+ public:
   static void LogLine(const char* file, unsigned int line, LogId id, LogSeverity severity,
                       const char* tag, const char* msg);
 
@@ -441,6 +442,7 @@ class LogMessage {
 
   // TODO(b/35361699): remove these symbols once all prebuilds stop using it.
   LogMessage(const char* file, unsigned int line, LogId id, LogSeverity severity, int error);
+ public:
   static void LogLine(const char* file, unsigned int line, LogId id, LogSeverity severity,
                       const char* msg);
 
